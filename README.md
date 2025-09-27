@@ -13,8 +13,8 @@ zk_health_pass/
 ├── generate_inputs/    # Rust program for creating ECDSA inputs
 ├── noir/              # Noir circuit for ZK verification
 ├── backend/           # (Future: API development)
-├── contracts/         # (Future: Smart contracts)
-└── config/           # (Future: Configuration files)
+├── contracts/         # (Smart contracts)
+└── config/           # (Configuration files)
 ```
 
 ### Components
