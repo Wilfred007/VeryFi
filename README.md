@@ -1,4 +1,4 @@
-# ZK Health Pass 🏥🔐
+# VeryFi 🏥🔐
 
 A Zero-Knowledge Health Passport system that allows verification of health credentials (like vaccination certificates) using zero-knowledge proofs without revealing sensitive health data.
 
