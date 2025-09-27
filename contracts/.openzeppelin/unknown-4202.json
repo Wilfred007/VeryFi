@@ -1,0 +1,866 @@
+{
+  "manifestVersion": "3.2",
+  "proxies": [
+    {
+      "address": "0xF0AcD34E64736F6AB60E39088469ae86fF165AA9",
+      "txHash": "0xa68a968f43bf13639da74953b3a4f447cb24f00e433bda91ca6f7b269b0b4d05",
+      "kind": "uups"
+    },
+    {
+      "address": "0x749AFac3004131CF8DB9e820Bc6D9f3F654Ab44F",
+      "txHash": "0x74a61d0a229a9216b348060cf7ee5922c842f3426301e5b7cef0fb1ac20065fd",
+      "kind": "uups"
+    }
+  ],
+  "impls": {
+    "e10037c0eeee037c33d3590bc9f2b4a0b803dc5c9b6a03c4d09c3596159428e2": {
+      "address": "0x27062d9c59d77278A288490342B7f039d8eFD050",
+      "txHash": "0x6e9ad3afc39ed0fee907dd8f07cca8c899aaf96983e2379b009fbeea3913819f",
+      "layout": {
+        "solcVersion": "0.8.22",
+        "storage": [
+          {
+            "label": "healthAuthorities",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_mapping(t_address,t_struct(HealthAuthority)2347_storage)",
+            "contract": "HealthAuthorityRegistry",
+            "src": "contracts/HealthAuthorityRegistry.sol:79"
+          },
+          {
+            "label": "applications",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_mapping(t_address,t_struct(AuthorityApplication)2374_storage)",
+            "contract": "HealthAuthorityRegistry",
+            "src": "contracts/HealthAuthorityRegistry.sol:80"
+          },
+          {
+            "label": "nameToAddress",
+            "offset": 0,
+            "slot": "2",
+            "type": "t_mapping(t_string_memory_ptr,t_address)",
+            "contract": "HealthAuthorityRegistry",
+            "src": "contracts/HealthAuthorityRegistry.sol:81"
+          },
+          {
+            "label": "authoritiesByType",
+            "offset": 0,
+            "slot": "3",
+            "type": "t_mapping(t_enum(AuthorityType)2310,t_array(t_address)dyn_storage)",
+            "contract": "HealthAuthorityRegistry",
+            "src": "contracts/HealthAuthorityRegistry.sol:82"
+          },
+          {
+            "label": "authoritiesByCountry",
+            "offset": 0,
+            "slot": "4",
+            "type": "t_mapping(t_string_memory_ptr,t_array(t_address)dyn_storage)",
+            "contract": "HealthAuthorityRegistry",
+            "src": "contracts/HealthAuthorityRegistry.sol:83"
+          },
+          {
+            "label": "allAuthorities",
+            "offset": 0,
+            "slot": "5",
+            "type": "t_array(t_address)dyn_storage",
+            "contract": "HealthAuthorityRegistry",
+            "src": "contracts/HealthAuthorityRegistry.sol:85"
+          },
+          {
+            "label": "pendingApplications",
+            "offset": 0,
+            "slot": "6",
+            "type": "t_array(t_address)dyn_storage",
+            "contract": "HealthAuthorityRegistry",
+            "src": "contracts/HealthAuthorityRegistry.sol:86"
+          },
+          {
+            "label": "totalAuthorities",
+            "offset": 0,
+            "slot": "7",
+            "type": "t_uint256",
+            "contract": "HealthAuthorityRegistry",
+            "src": "contracts/HealthAuthorityRegistry.sol:88"
+          },
+          {
+            "label": "activeAuthorities",
+            "offset": 0,
+            "slot": "8",
+            "type": "t_uint256",
+            "contract": "HealthAuthorityRegistry",
+            "src": "contracts/HealthAuthorityRegistry.sol:89"
+          },
+          {
+            "label": "pendingApplicationsCount",
+            "offset": 0,
+            "slot": "9",
+            "type": "t_uint256",
+            "contract": "HealthAuthorityRegistry",
+            "src": "contracts/HealthAuthorityRegistry.sol:90"
+          }
+        ],
+        "types": {
+          "t_address": {
+            "label": "address",
+            "numberOfBytes": "20"
+          },
+          "t_bool": {
+            "label": "bool",
+            "numberOfBytes": "1"
+          },
+          "t_bytes32": {
+            "label": "bytes32",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_address,t_bool)": {
+            "label": "mapping(address => bool)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_bytes32,t_struct(RoleData)26_storage)": {
+            "label": "mapping(bytes32 => struct AccessControlUpgradeable.RoleData)",
+            "numberOfBytes": "32"
+          },
+          "t_struct(AccessControlStorage)36_storage": {
+            "label": "struct AccessControlUpgradeable.AccessControlStorage",
+            "members": [
+              {
+                "label": "_roles",
+                "type": "t_mapping(t_bytes32,t_struct(RoleData)26_storage)",
+                "offset": 0,
+                "slot": "0"
+              }
+            ],
+            "numberOfBytes": "32"
+          },
+          "t_struct(InitializableStorage)147_storage": {
+            "label": "struct Initializable.InitializableStorage",
+            "members": [
+              {
+                "label": "_initialized",
+                "type": "t_uint64",
+                "offset": 0,
+                "slot": "0"
+              },
+              {
+                "label": "_initializing",
+                "type": "t_bool",
+                "offset": 8,
+                "slot": "0"
+              }
+            ],
+            "numberOfBytes": "32"
+          },
+          "t_struct(PausableStorage)298_storage": {
+            "label": "struct PausableUpgradeable.PausableStorage",
+            "members": [
+              {
+                "label": "_paused",
+                "type": "t_bool",
+                "offset": 0,
+                "slot": "0"
+              }
+            ],
+            "numberOfBytes": "32"
+          },
+          "t_struct(RoleData)26_storage": {
+            "label": "struct AccessControlUpgradeable.RoleData",
+            "members": [
+              {
+                "label": "hasRole",
+                "type": "t_mapping(t_address,t_bool)",
+                "offset": 0,
+                "slot": "0"
+              },
+              {
+                "label": "adminRole",
+                "type": "t_bytes32",
+                "offset": 0,
+                "slot": "1"
+              }
+            ],
+            "numberOfBytes": "64"
+          },
+          "t_uint64": {
+            "label": "uint64",
+            "numberOfBytes": "8"
+          },
+          "t_array(t_address)dyn_storage": {
+            "label": "address[]",
+            "numberOfBytes": "32"
+          },
+          "t_array(t_string_storage)dyn_storage": {
+            "label": "string[]",
+            "numberOfBytes": "32"
+          },
+          "t_bytes_storage": {
+            "label": "bytes",
+            "numberOfBytes": "32"
+          },
+          "t_enum(AuthorityStatus)2315": {
+            "label": "enum HealthAuthorityRegistry.AuthorityStatus",
+            "members": [
+              "Pending",
+              "Active",
+              "Suspended",
+              "Revoked"
+            ],
+            "numberOfBytes": "1"
+          },
+          "t_enum(AuthorityType)2310": {
+            "label": "enum HealthAuthorityRegistry.AuthorityType",
+            "members": [
+              "Hospital",
+              "Clinic",
+              "Laboratory",
+              "Government",
+              "Pharmacy",
+              "University",
+              "Other"
+            ],
+            "numberOfBytes": "1"
+          },
+          "t_mapping(t_address,t_struct(AuthorityApplication)2374_storage)": {
+            "label": "mapping(address => struct HealthAuthorityRegistry.AuthorityApplication)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_address,t_struct(HealthAuthority)2347_storage)": {
+            "label": "mapping(address => struct HealthAuthorityRegistry.HealthAuthority)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_enum(AuthorityType)2310,t_array(t_address)dyn_storage)": {
+            "label": "mapping(enum HealthAuthorityRegistry.AuthorityType => address[])",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_string_memory_ptr,t_address)": {
+            "label": "mapping(string => address)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_string_memory_ptr,t_array(t_address)dyn_storage)": {
+            "label": "mapping(string => address[])",
+            "numberOfBytes": "32"
+          },
+          "t_string_memory_ptr": {
+            "label": "string",
+            "numberOfBytes": "32"
+          },
+          "t_string_storage": {
+            "label": "string",
+            "numberOfBytes": "32"
+          },
+          "t_struct(AuthorityApplication)2374_storage": {
+            "label": "struct HealthAuthorityRegistry.AuthorityApplication",
+            "members": [
+              {
+                "label": "applicant",
+                "type": "t_address",
+                "offset": 0,
+                "slot": "0"
+              },
+              {
+                "label": "name",
+                "type": "t_string_storage",
+                "offset": 0,
+                "slot": "1"
+              },
+              {
+                "label": "authorityType",
+                "type": "t_enum(AuthorityType)2310",
+                "offset": 0,
+                "slot": "2"
+              },
+              {
+                "label": "country",
+                "type": "t_string_storage",
+                "offset": 0,
+                "slot": "3"
+              },
+              {
+                "label": "region",
+                "type": "t_string_storage",
+                "offset": 0,
+                "slot": "4"
+              },
+              {
+                "label": "publicKey",
+                "type": "t_bytes_storage",
+                "offset": 0,
+                "slot": "5"
+              },
+              {
+                "label": "certificateHash",
+                "type": "t_string_storage",
+                "offset": 0,
+                "slot": "6"
+              },
+              {
+                "label": "contactInfo",
+                "type": "t_string_storage",
+                "offset": 0,
+                "slot": "7"
+              },
+              {
+                "label": "accreditations",
+                "type": "t_array(t_string_storage)dyn_storage",
+                "offset": 0,
+                "slot": "8"
+              },
+              {
+                "label": "appliedAt",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "9"
+              },
+              {
+                "label": "isProcessed",
+                "type": "t_bool",
+                "offset": 0,
+                "slot": "10"
+              },
+              {
+                "label": "rejectionReason",
+                "type": "t_string_storage",
+                "offset": 0,
+                "slot": "11"
+              }
+            ],
+            "numberOfBytes": "384"
+          },
+          "t_struct(HealthAuthority)2347_storage": {
+            "label": "struct HealthAuthorityRegistry.HealthAuthority",
+            "members": [
+              {
+                "label": "name",
+                "type": "t_string_storage",
+                "offset": 0,
+                "slot": "0"
+              },
+              {
+                "label": "authorityType",
+                "type": "t_enum(AuthorityType)2310",
+                "offset": 0,
+                "slot": "1"
+              },
+              {
+                "label": "country",
+                "type": "t_string_storage",
+                "offset": 0,
+                "slot": "2"
+              },
+              {
+                "label": "region",
+                "type": "t_string_storage",
+                "offset": 0,
+                "slot": "3"
+              },
+              {
+                "label": "publicKey",
+                "type": "t_bytes_storage",
+                "offset": 0,
+                "slot": "4"
+              },
+              {
+                "label": "certificateHash",
+                "type": "t_string_storage",
+                "offset": 0,
+                "slot": "5"
+              },
+              {
+                "label": "contactInfo",
+                "type": "t_string_storage",
+                "offset": 0,
+                "slot": "6"
+              },
+              {
+                "label": "status",
+                "type": "t_enum(AuthorityStatus)2315",
+                "offset": 0,
+                "slot": "7"
+              },
+              {
+                "label": "registeredAt",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "8"
+              },
+              {
+                "label": "lastUpdated",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "9"
+              },
+              {
+                "label": "registeredBy",
+                "type": "t_address",
+                "offset": 0,
+                "slot": "10"
+              },
+              {
+                "label": "totalRecordsIssued",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "11"
+              },
+              {
+                "label": "totalRecordsRevoked",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "12"
+              },
+              {
+                "label": "accreditations",
+                "type": "t_array(t_string_storage)dyn_storage",
+                "offset": 0,
+                "slot": "13"
+              }
+            ],
+            "numberOfBytes": "448"
+          },
+          "t_uint256": {
+            "label": "uint256",
+            "numberOfBytes": "32"
+          }
+        },
+        "namespaces": {
+          "erc7201:openzeppelin.storage.Pausable": [
+            {
+              "contract": "PausableUpgradeable",
+              "label": "_paused",
+              "type": "t_bool",
+              "src": "@openzeppelin/contracts-upgradeable/utils/PausableUpgradeable.sol:21",
+              "offset": 0,
+              "slot": "0"
+            }
+          ],
+          "erc7201:openzeppelin.storage.AccessControl": [
+            {
+              "contract": "AccessControlUpgradeable",
+              "label": "_roles",
+              "type": "t_mapping(t_bytes32,t_struct(RoleData)26_storage)",
+              "src": "@openzeppelin/contracts-upgradeable/access/AccessControlUpgradeable.sol:62",
+              "offset": 0,
+              "slot": "0"
+            }
+          ],
+          "erc7201:openzeppelin.storage.Initializable": [
+            {
+              "contract": "Initializable",
+              "label": "_initialized",
+              "type": "t_uint64",
+              "src": "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol:69",
+              "offset": 0,
+              "slot": "0"
+            },
+            {
+              "contract": "Initializable",
+              "label": "_initializing",
+              "type": "t_bool",
+              "src": "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol:73",
+              "offset": 8,
+              "slot": "0"
+            }
+          ]
+        }
+      }
+    },
+    "d922c9d3b45d48e42aa0256758bb5d0e5ef9f6e0ab01188f5b30807d8c4ecbd3": {
+      "address": "0x624a41c41Ab06752f2AfBf4Ff7fCc8E758f1b5F1",
+      "txHash": "0x6028e85cc2246d90161dccc0fe2eb9268b6eba56f2c7ad3d14335e095ea36592",
+      "layout": {
+        "solcVersion": "0.8.22",
+        "storage": [
+          {
+            "label": "healthAuthorities",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_mapping(t_address,t_struct(HealthAuthority)3416_storage)",
+            "contract": "ZKHealthPassRegistry",
+            "src": "contracts/ZKHealthPassRegistry.sol:60"
+          },
+          {
+            "label": "zkProofs",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_mapping(t_bytes32,t_struct(ZKProof)3431_storage)",
+            "contract": "ZKHealthPassRegistry",
+            "src": "contracts/ZKHealthPassRegistry.sol:61"
+          },
+          {
+            "label": "verificationHistory",
+            "offset": 0,
+            "slot": "2",
+            "type": "t_mapping(t_bytes32,t_array(t_struct(VerificationEvent)3442_storage)dyn_storage)",
+            "contract": "ZKHealthPassRegistry",
+            "src": "contracts/ZKHealthPassRegistry.sol:62"
+          },
+          {
+            "label": "authorityAddresses",
+            "offset": 0,
+            "slot": "3",
+            "type": "t_array(t_address)dyn_storage",
+            "contract": "ZKHealthPassRegistry",
+            "src": "contracts/ZKHealthPassRegistry.sol:64"
+          },
+          {
+            "label": "proofHashes",
+            "offset": 0,
+            "slot": "4",
+            "type": "t_array(t_bytes32)dyn_storage",
+            "contract": "ZKHealthPassRegistry",
+            "src": "contracts/ZKHealthPassRegistry.sol:65"
+          },
+          {
+            "label": "totalAuthorities",
+            "offset": 0,
+            "slot": "5",
+            "type": "t_uint256",
+            "contract": "ZKHealthPassRegistry",
+            "src": "contracts/ZKHealthPassRegistry.sol:67"
+          },
+          {
+            "label": "totalProofs",
+            "offset": 0,
+            "slot": "6",
+            "type": "t_uint256",
+            "contract": "ZKHealthPassRegistry",
+            "src": "contracts/ZKHealthPassRegistry.sol:68"
+          },
+          {
+            "label": "totalVerifications",
+            "offset": 0,
+            "slot": "7",
+            "type": "t_uint256",
+            "contract": "ZKHealthPassRegistry",
+            "src": "contracts/ZKHealthPassRegistry.sol:69"
+          }
+        ],
+        "types": {
+          "t_address": {
+            "label": "address",
+            "numberOfBytes": "20"
+          },
+          "t_bool": {
+            "label": "bool",
+            "numberOfBytes": "1"
+          },
+          "t_bytes32": {
+            "label": "bytes32",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_address,t_bool)": {
+            "label": "mapping(address => bool)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_bytes32,t_struct(RoleData)26_storage)": {
+            "label": "mapping(bytes32 => struct AccessControlUpgradeable.RoleData)",
+            "numberOfBytes": "32"
+          },
+          "t_struct(AccessControlStorage)36_storage": {
+            "label": "struct AccessControlUpgradeable.AccessControlStorage",
+            "members": [
+              {
+                "label": "_roles",
+                "type": "t_mapping(t_bytes32,t_struct(RoleData)26_storage)",
+                "offset": 0,
+                "slot": "0"
+              }
+            ],
+            "numberOfBytes": "32"
+          },
+          "t_struct(InitializableStorage)147_storage": {
+            "label": "struct Initializable.InitializableStorage",
+            "members": [
+              {
+                "label": "_initialized",
+                "type": "t_uint64",
+                "offset": 0,
+                "slot": "0"
+              },
+              {
+                "label": "_initializing",
+                "type": "t_bool",
+                "offset": 8,
+                "slot": "0"
+              }
+            ],
+            "numberOfBytes": "32"
+          },
+          "t_struct(PausableStorage)298_storage": {
+            "label": "struct PausableUpgradeable.PausableStorage",
+            "members": [
+              {
+                "label": "_paused",
+                "type": "t_bool",
+                "offset": 0,
+                "slot": "0"
+              }
+            ],
+            "numberOfBytes": "32"
+          },
+          "t_struct(ReentrancyGuardStorage)362_storage": {
+            "label": "struct ReentrancyGuardUpgradeable.ReentrancyGuardStorage",
+            "members": [
+              {
+                "label": "_status",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "0"
+              }
+            ],
+            "numberOfBytes": "32"
+          },
+          "t_struct(RoleData)26_storage": {
+            "label": "struct AccessControlUpgradeable.RoleData",
+            "members": [
+              {
+                "label": "hasRole",
+                "type": "t_mapping(t_address,t_bool)",
+                "offset": 0,
+                "slot": "0"
+              },
+              {
+                "label": "adminRole",
+                "type": "t_bytes32",
+                "offset": 0,
+                "slot": "1"
+              }
+            ],
+            "numberOfBytes": "64"
+          },
+          "t_uint256": {
+            "label": "uint256",
+            "numberOfBytes": "32"
+          },
+          "t_uint64": {
+            "label": "uint64",
+            "numberOfBytes": "8"
+          },
+          "t_array(t_address)dyn_storage": {
+            "label": "address[]",
+            "numberOfBytes": "32"
+          },
+          "t_array(t_bytes32)dyn_storage": {
+            "label": "bytes32[]",
+            "numberOfBytes": "32"
+          },
+          "t_array(t_struct(VerificationEvent)3442_storage)dyn_storage": {
+            "label": "struct ZKHealthPassRegistry.VerificationEvent[]",
+            "numberOfBytes": "32"
+          },
+          "t_bytes_storage": {
+            "label": "bytes",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_address,t_struct(HealthAuthority)3416_storage)": {
+            "label": "mapping(address => struct ZKHealthPassRegistry.HealthAuthority)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_bytes32,t_array(t_struct(VerificationEvent)3442_storage)dyn_storage)": {
+            "label": "mapping(bytes32 => struct ZKHealthPassRegistry.VerificationEvent[])",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_bytes32,t_bool)": {
+            "label": "mapping(bytes32 => bool)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_bytes32,t_struct(ZKProof)3431_storage)": {
+            "label": "mapping(bytes32 => struct ZKHealthPassRegistry.ZKProof)",
+            "numberOfBytes": "32"
+          },
+          "t_string_storage": {
+            "label": "string",
+            "numberOfBytes": "32"
+          },
+          "t_struct(HealthAuthority)3416_storage": {
+            "label": "struct ZKHealthPassRegistry.HealthAuthority",
+            "members": [
+              {
+                "label": "name",
+                "type": "t_string_storage",
+                "offset": 0,
+                "slot": "0"
+              },
+              {
+                "label": "authorityType",
+                "type": "t_string_storage",
+                "offset": 0,
+                "slot": "1"
+              },
+              {
+                "label": "publicKey",
+                "type": "t_bytes_storage",
+                "offset": 0,
+                "slot": "2"
+              },
+              {
+                "label": "certificate",
+                "type": "t_string_storage",
+                "offset": 0,
+                "slot": "3"
+              },
+              {
+                "label": "isActive",
+                "type": "t_bool",
+                "offset": 0,
+                "slot": "4"
+              },
+              {
+                "label": "registeredAt",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "5"
+              },
+              {
+                "label": "totalRecordsIssued",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "6"
+              },
+              {
+                "label": "revokedRecords",
+                "type": "t_mapping(t_bytes32,t_bool)",
+                "offset": 0,
+                "slot": "7"
+              }
+            ],
+            "numberOfBytes": "256"
+          },
+          "t_struct(VerificationEvent)3442_storage": {
+            "label": "struct ZKHealthPassRegistry.VerificationEvent",
+            "members": [
+              {
+                "label": "proofHash",
+                "type": "t_bytes32",
+                "offset": 0,
+                "slot": "0"
+              },
+              {
+                "label": "verifier",
+                "type": "t_address",
+                "offset": 0,
+                "slot": "1"
+              },
+              {
+                "label": "isValid",
+                "type": "t_bool",
+                "offset": 20,
+                "slot": "1"
+              },
+              {
+                "label": "timestamp",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "2"
+              },
+              {
+                "label": "context",
+                "type": "t_string_storage",
+                "offset": 0,
+                "slot": "3"
+              }
+            ],
+            "numberOfBytes": "128"
+          },
+          "t_struct(ZKProof)3431_storage": {
+            "label": "struct ZKHealthPassRegistry.ZKProof",
+            "members": [
+              {
+                "label": "proofHash",
+                "type": "t_bytes32",
+                "offset": 0,
+                "slot": "0"
+              },
+              {
+                "label": "healthRecordHash",
+                "type": "t_bytes32",
+                "offset": 0,
+                "slot": "1"
+              },
+              {
+                "label": "authority",
+                "type": "t_address",
+                "offset": 0,
+                "slot": "2"
+              },
+              {
+                "label": "generatedAt",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "3"
+              },
+              {
+                "label": "expiresAt",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "4"
+              },
+              {
+                "label": "isRevoked",
+                "type": "t_bool",
+                "offset": 0,
+                "slot": "5"
+              },
+              {
+                "label": "verificationCount",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "6"
+              }
+            ],
+            "numberOfBytes": "224"
+          }
+        },
+        "namespaces": {
+          "erc7201:openzeppelin.storage.ReentrancyGuard": [
+            {
+              "contract": "ReentrancyGuardUpgradeable",
+              "label": "_status",
+              "type": "t_uint256",
+              "src": "@openzeppelin/contracts-upgradeable/utils/ReentrancyGuardUpgradeable.sol:43",
+              "offset": 0,
+              "slot": "0"
+            }
+          ],
+          "erc7201:openzeppelin.storage.Pausable": [
+            {
+              "contract": "PausableUpgradeable",
+              "label": "_paused",
+              "type": "t_bool",
+              "src": "@openzeppelin/contracts-upgradeable/utils/PausableUpgradeable.sol:21",
+              "offset": 0,
+              "slot": "0"
+            }
+          ],
+          "erc7201:openzeppelin.storage.AccessControl": [
+            {
+              "contract": "AccessControlUpgradeable",
+              "label": "_roles",
+              "type": "t_mapping(t_bytes32,t_struct(RoleData)26_storage)",
+              "src": "@openzeppelin/contracts-upgradeable/access/AccessControlUpgradeable.sol:62",
+              "offset": 0,
+              "slot": "0"
+            }
+          ],
+          "erc7201:openzeppelin.storage.Initializable": [
+            {
+              "contract": "Initializable",
+              "label": "_initialized",
+              "type": "t_uint64",
+              "src": "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol:69",
+              "offset": 0,
+              "slot": "0"
+            },
+            {
+              "contract": "Initializable",
+              "label": "_initializing",
+              "type": "t_bool",
+              "src": "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol:73",
+              "offset": 8,
+              "slot": "0"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

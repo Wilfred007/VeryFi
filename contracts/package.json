@@ -1,0 +1,42 @@
+{
+  "name": "zk-health-pass-contracts",
+  "version": "1.0.0",
+  "description": "Smart contracts for ZK Health Pass system",
+  "main": "index.js",
+  "scripts": {
+    "compile": "hardhat compile",
+    "test": "hardhat test",
+    "deploy:local": "hardhat run scripts/deploy.js --network localhost",
+    "deploy:sepolia": "hardhat run scripts/deploy.js --network sepolia",
+    "deploy:mainnet": "hardhat run scripts/deploy.js --network mainnet",
+    "deploy:lisk-sepolia": "hardhat run scripts/deploy-lisk.js --network liskSepolia",
+    "deploy:lisk": "hardhat run scripts/deploy-lisk.js --network lisk",
+    "verify": "hardhat verify",
+    "node": "hardhat node",
+    "clean": "hardhat clean",
+    "check-balance": "hardhat run scripts/check-balance.js",
+    "test-lisk": "hardhat test --network liskSepolia"
+  },
+  "keywords": [
+    "blockchain",
+    "zk-proofs",
+    "health",
+    "ethereum",
+    "solidity"
+  ],
+  "author": "ZK Health Pass Team",
+  "license": "MIT",
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^4.0.0",
+    "@nomicfoundation/hardhat-verify": "^2.0.0",
+    "@openzeppelin/hardhat-upgrades": "^3.0.0",
+    "hardhat": "^2.19.0",
+    "hardhat-gas-reporter": "^1.0.9",
+    "solidity-coverage": "^0.8.5"
+  },
+  "dependencies": {
+    "@openzeppelin/contracts": "^5.4.0",
+    "@openzeppelin/contracts-upgradeable": "^5.4.0",
+    "dotenv": "^16.3.1"
+  }
+}

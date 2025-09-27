@@ -1,0 +1,9 @@
+### File: noir/Nargo.toml
+[package]
+name = "health_passport_circuit"
+type = "bin"
+authors = [""]
+compiler_version = ">=0.19.0"
+
+[dependencies]
+
