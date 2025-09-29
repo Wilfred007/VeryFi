@@ -5,32 +5,8 @@ export const CONTRACT_ADDRESSES = {
   // ZK_PROOF_VERIFIER: '', // To be deployed
 } as const;
 
-// Lisk Sepolia network configuration
-export const LISK_SEPOLIA = {
-  id: 4202,
-  name: 'Lisk Sepolia',
-  network: 'lisk-sepolia',
-  nativeCurrency: {
-    decimals: 18,
-    name: 'Sepolia Ether',
-    symbol: 'ETH',
-  },
-  rpcUrls: {
-    default: {
-      http: ['https://rpc.sepolia-api.lisk.com'],
-    },
-    public: {
-      http: ['https://rpc.sepolia-api.lisk.com'],
-    },
-  },
-  blockExplorers: {
-    default: {
-      name: 'Lisk Sepolia Explorer',
-      url: 'https://sepolia-blockscout.lisk.com',
-    },
-  },
-  testnet: true,
-} as const;
+// Import LISK_SEPOLIA from wagmi config
+export { LISK_SEPOLIA } from './wagmi'
 
 // Authority types enum
 export enum AuthorityType {

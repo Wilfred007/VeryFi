@@ -1,0 +1,1 @@
+{"version":3,"file":"stdio-server.d.ts","sourceRoot":"","sources":["../../src/stdio-server.ts"],"names":[],"mappings":";AAOA,cAAM,cAAc;IAClB,OAAO,CAAC,MAAM,CAAS;IACvB,OAAO,CAAC,eAAe,CAAS;;IAS1B,KAAK,IAAI,OAAO,CAAC,IAAI,CAAC;YA+Bd,aAAa;YA6Cb,gBAAgB;YAiBhB,eAAe;YAUf,cAAc;YAuCd,eAAe;YAkEf,aAAa;IAuD3B,OAAO,CAAC,YAAY;IAMpB,OAAO,CAAC,QAAQ;CAIjB;AAWD,OAAO,EAAE,cAAc,EAAE,CAAC"}

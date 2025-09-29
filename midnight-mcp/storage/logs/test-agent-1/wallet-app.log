@@ -1,0 +1,35 @@
+{"timestamp":"2025-09-28T08:43:20.338Z","level":"info","context":"WalletServer","message":"Services initialized successfully","agentId":"test-agent-1"}
+{"timestamp":"2025-09-28T08:43:20.319Z","level":"info","context":"WalletService","message":"Initializing wallet service","agentId":"test-agent-1"}
+{"timestamp":"2025-09-28T08:43:20.336Z","level":"info","context":"HealthPassService","message":"Initializing Health Pass service"}
+{"timestamp":"2025-09-28T08:43:20.346Z","level":"info","context":"WalletServer","message":"Wallet server started","port":"3001","agentId":"test-agent-1","nodeEnv":"development"}
+{"timestamp":"2025-09-28T08:43:20.332Z","level":"info","context":"WalletService","message":"Wallet service initialized successfully"}
+{"timestamp":"2025-09-28T08:43:20.337Z","level":"info","context":"HealthPassService","message":"Health Pass service initialized"}
+{"timestamp":"2025-09-28T08:44:14.234Z","level":"info","context":"HealthPassService","message":"Creating new health proof","recordType":"vaccination"}
+{"timestamp":"2025-09-28T08:44:14.239Z","level":"info","context":"HealthPassService","message":"Health proof created successfully","proofHash":"0xc6e2b775a0bd2e7671...","recordType":"vaccination","expiresAt":"2025-10-28T08:44:14.238Z"}
+{"timestamp":"2025-09-28T08:51:05.676Z","level":"info","context":"HealthPassService","message":"Verifying health proof","proofHash":"0xc6e2b775a0bd2e7671..."}
+{"timestamp":"2025-09-28T08:51:05.676Z","level":"info","context":"HealthPassService","message":"Health proof verified successfully","proofHash":"0xc6e2b775a0bd2e7671...","verificationCount":1}
+{"timestamp":"2025-09-28T08:52:21.362Z","level":"info","context":"MCPStdioServer","message":"Starting MCP STDIO server","agentId":"test-agent-1","walletServerUrl":"http://localhost:3000"}
+{"timestamp":"2025-09-28T08:52:36.591Z","level":"info","context":"MCPStdioServer","message":"Starting MCP STDIO server","agentId":"test-agent-1","walletServerUrl":"http://localhost:3000"}
+{"timestamp":"2025-09-28T08:52:36.613Z","level":"info","context":"MCPStdioServer","message":"Executing tool","toolName":"createHealthProof","args":{"patientName":"Alice Johnson","recordType":"vaccination","vaccinationType":"COVID-19","vaccinationDate":"2025-09-28"}}
+{"timestamp":"2025-09-28T08:53:08.590Z","level":"info","context":"MCPStdioServer","message":"Starting MCP STDIO server","agentId":"test-agent-1","walletServerUrl":"http://localhost:3001"}
+{"timestamp":"2025-09-28T08:53:08.625Z","level":"info","context":"MCPStdioServer","message":"Executing tool","toolName":"walletStatus","args":{}}
+{"timestamp":"2025-09-28T08:53:29.907Z","level":"info","context":"MCPStdioServer","message":"Starting MCP STDIO server","agentId":"test-agent-1","walletServerUrl":"http://localhost:3001"}
+{"timestamp":"2025-09-28T08:53:29.928Z","level":"info","context":"MCPStdioServer","message":"Executing tool","toolName":"createHealthProof","args":{"patientName":"Alice Johnson","recordType":"vaccination","vaccinationType":"COVID-19","vaccinationDate":"2025-09-28"}}
+{"timestamp":"2025-09-28T08:53:29.972Z","level":"info","context":"HealthPassService","message":"Creating new health proof","recordType":"vaccination"}
+{"timestamp":"2025-09-28T08:53:29.973Z","level":"info","context":"HealthPassService","message":"Health proof created successfully","proofHash":"0x421467cc55a44f6b38...","recordType":"vaccination","expiresAt":"2025-10-28T08:53:29.973Z"}
+{"timestamp":"2025-09-28T08:58:20.585Z","level":"info","context":"HealthPassService","message":"Creating new health proof","recordType":"vaccination"}
+{"timestamp":"2025-09-28T08:58:20.586Z","level":"info","context":"HealthPassService","message":"Health proof created successfully","proofHash":"0xe648d9341c95b807bb...","recordType":"vaccination","expiresAt":"2025-10-28T08:58:20.586Z"}
+{"timestamp":"2025-09-28T09:02:37.680Z","level":"info","context":"HealthPassService","message":"Creating new health proof","recordType":"vaccination"}
+{"timestamp":"2025-09-28T09:02:37.683Z","level":"info","context":"HealthPassService","message":"Health proof created successfully","proofHash":"0x045d61efa14d2488a3...","recordType":"vaccination","expiresAt":"2025-10-28T09:02:37.682Z"}
+{"timestamp":"2025-09-28T09:14:44.790Z","level":"info","context":"HealthPassService","message":"Creating new health proof","recordType":"vaccination"}
+{"timestamp":"2025-09-28T09:14:44.792Z","level":"info","context":"HealthPassService","message":"Health proof created successfully","proofHash":"0x7f65cd0a40f43fc586...","recordType":"vaccination","expiresAt":"2025-10-28T09:14:44.792Z"}
+{"timestamp":"2025-09-28T09:14:44.935Z","level":"info","context":"HealthPassService","message":"Verifying health proof","proofHash":"0x7f65cd0a40f43fc586..."}
+{"timestamp":"2025-09-28T09:14:44.935Z","level":"info","context":"HealthPassService","message":"Health proof verified successfully","proofHash":"0x7f65cd0a40f43fc586...","verificationCount":1}
+{"timestamp":"2025-09-28T14:28:20.754Z","level":"info","context":"WalletServer","message":"Services initialized successfully","agentId":"test-agent-1"}
+{"timestamp":"2025-09-28T14:28:20.746Z","level":"info","context":"WalletService","message":"Initializing wallet service","agentId":"test-agent-1"}
+{"timestamp":"2025-09-28T14:28:20.753Z","level":"info","context":"HealthPassService","message":"Initializing Health Pass service"}
+{"timestamp":"2025-09-28T14:28:20.758Z","level":"info","context":"WalletServer","message":"Wallet server started","port":"3001","agentId":"test-agent-1","nodeEnv":"development"}
+{"timestamp":"2025-09-28T14:28:20.752Z","level":"info","context":"WalletService","message":"Wallet service initialized successfully"}
+{"timestamp":"2025-09-28T14:28:20.754Z","level":"info","context":"HealthPassService","message":"Health Pass service initialized"}
+{"timestamp":"2025-09-28T14:44:19.091Z","level":"info","context":"HealthPassService","message":"Creating new health proof","recordType":"vaccination"}
+{"timestamp":"2025-09-28T14:44:19.095Z","level":"info","context":"HealthPassService","message":"Health proof created successfully","proofHash":"0xe5a1dbe98030a56a7d...","recordType":"vaccination","expiresAt":"2025-10-28T14:44:19.095Z"}

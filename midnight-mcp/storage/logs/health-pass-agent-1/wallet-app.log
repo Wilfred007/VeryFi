@@ -1,0 +1,16 @@
+{"timestamp":"2025-09-29T06:12:32.006Z","level":"info","context":"WalletServer","message":"Services initialized successfully","agentId":"health-pass-agent-1"}
+{"timestamp":"2025-09-29T06:12:31.994Z","level":"info","context":"WalletService","message":"Initializing wallet service","agentId":"health-pass-agent-1"}
+{"timestamp":"2025-09-29T06:12:32.005Z","level":"info","context":"HealthPassService","message":"Initializing Health Pass service"}
+{"timestamp":"2025-09-29T06:12:32.012Z","level":"info","context":"WalletServer","message":"Wallet server started","port":"3001","agentId":"health-pass-agent-1","nodeEnv":"development"}
+{"timestamp":"2025-09-29T06:12:32.003Z","level":"info","context":"WalletService","message":"Wallet service initialized successfully"}
+{"timestamp":"2025-09-29T06:12:32.006Z","level":"info","context":"HealthPassService","message":"Health Pass service initialized"}
+{"timestamp":"2025-09-29T06:48:02.556Z","level":"info","context":"HealthPassService","message":"Creating new health proof","recordType":"vaccination"}
+{"timestamp":"2025-09-29T06:48:02.559Z","level":"info","context":"HealthPassService","message":"Health proof created successfully","proofHash":"0x1c90b9cb08193ead3b...","recordType":"vaccination","expiresAt":"2025-10-29T06:48:02.559Z"}
+{"timestamp":"2025-09-29T06:48:02.587Z","level":"info","context":"HealthPassService","message":"Verifying health proof","proofHash":"0x1c90b9cb08193ead3b..."}
+{"timestamp":"2025-09-29T06:48:02.588Z","level":"info","context":"HealthPassService","message":"Health proof verified successfully","proofHash":"0x1c90b9cb08193ead3b...","verificationCount":1}
+{"timestamp":"2025-09-29T07:00:58.778Z","level":"info","context":"HealthPassService","message":"Creating new health proof","recordType":"vaccination"}
+{"timestamp":"2025-09-29T07:00:58.779Z","level":"info","context":"HealthPassService","message":"Health proof created successfully","proofHash":"0xf3d4801842436eccc0...","recordType":"vaccination","expiresAt":"2025-10-29T07:00:58.779Z"}
+{"timestamp":"2025-09-29T07:01:46.799Z","level":"info","context":"HealthPassService","message":"Creating new health proof","recordType":"vaccination"}
+{"timestamp":"2025-09-29T07:01:46.800Z","level":"info","context":"HealthPassService","message":"Health proof created successfully","proofHash":"0x46f2500b74980a1959...","recordType":"vaccination","expiresAt":"2025-10-29T07:01:46.800Z"}
+{"timestamp":"2025-09-29T07:01:46.839Z","level":"info","context":"HealthPassService","message":"Verifying health proof","proofHash":"0x46f2500b74980a1959..."}
+{"timestamp":"2025-09-29T07:01:46.839Z","level":"info","context":"HealthPassService","message":"Health proof verified successfully","proofHash":"0x46f2500b74980a1959...","verificationCount":1}

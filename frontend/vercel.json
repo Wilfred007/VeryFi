@@ -1,0 +1,36 @@
+{
+  "version": 2,
+  "name": "veryfi",
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "build"
+      }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/static/(.*)",
+      "headers": {
+        "cache-control": "s-maxage=31536000,immutable"
+      }
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/index.html"
+    }
+  ],
+  "env": {
+    "REACT_APP_HEALTH_AUTHORITY_REGISTRY": "0xF0AcD34E64736F6AB60E39088469ae86fF165AA9",
+    "REACT_APP_ZK_HEALTH_PASS_REGISTRY": "0x749AFac3004131CF8DB9e820Bc6D9f3F654Ab44F",
+    "REACT_APP_MIDNIGHT_MCP_URL": "https://your-mcp-server.vercel.app",
+    "REACT_APP_CHAIN_ID": "4202",
+    "REACT_APP_NETWORK_NAME": "Lisk Sepolia",
+    "REACT_APP_RPC_URL": "https://rpc.sepolia-api.lisk.com",
+    "REACT_APP_EXPLORER_URL": "https://sepolia-blockscout.lisk.com",
+    "REACT_APP_APP_NAME": "VeryFi",
+    "REACT_APP_APP_DESCRIPTION": "AI-Powered Health Verification using zero-knowledge proofs on Midnight blockchain"
+  }
+}

@@ -13,11 +13,18 @@ const Header: React.FC = () => {
   });
 
   const handleConnect = () => {
-    const injectedConnector = connectors.find(connector => 
-      connector.id === 'injected' || connector.id === 'metaMask'
+    // Try MetaMask first, then injected, then any available connector
+    const metaMaskConnector = connectors.find(connector => 
+      connector.id === 'metaMask' || connector.name.toLowerCase().includes('metamask')
     );
-    if (injectedConnector) {
-      connect({ connector: injectedConnector });
+    const injectedConnector = connectors.find(connector => connector.id === 'injected');
+    const availableConnector = metaMaskConnector || injectedConnector || connectors[0];
+    
+    if (availableConnector) {
+      console.log('Connecting with:', availableConnector.name, availableConnector.id);
+      connect({ connector: availableConnector });
+    } else {
+      alert('No wallet connectors available. Please install MetaMask.');
     }
   };
 
@@ -28,12 +35,14 @@ const Header: React.FC = () => {
           {/* Logo and Title */}
           <div className="flex items-center">
             <div className="flex-shrink-0 flex items-center">
-              <div className="w-8 h-8 bg-primary-600 rounded-lg flex items-center justify-center mr-3">
-                <Shield className="w-5 h-5 text-white" />
+              <div className="w-10 h-10 bg-gradient-to-br from-purple-600 to-blue-600 rounded-xl flex items-center justify-center mr-3 shadow-lg">
+                <Shield className="w-6 h-6 text-white" />
               </div>
               <div>
-                <h1 className="text-xl font-bold text-gray-900">ZK Health Pass</h1>
-                <p className="text-xs text-gray-500">Lisk Sepolia Testnet</p>
+                <h1 className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+                  VeryFi
+                </h1>
+                <p className="text-xs text-gray-500 font-medium">Powered by Midnight & AI</p>
               </div>
             </div>
           </div>
@@ -88,7 +97,7 @@ const Header: React.FC = () => {
               <button
                 onClick={handleConnect}
                 disabled={isPending}
-                className="bg-primary-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-primary-700 transition-colors flex items-center space-x-2 disabled:opacity-50"
+                className="bg-purple-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-purple-700 transition-colors flex items-center space-x-2 disabled:opacity-50"
               >
                 <Wallet className="w-4 h-4" />
                 <span>{isPending ? 'Connecting...' : 'Connect Wallet'}</span>

@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { useAccount, useWriteContract, useReadContract } from 'wagmi';
+import { useAccount, useWriteContract, useReadContract, useChainId } from 'wagmi';
 import { hashHealthRecord, createProofHash, getStorageBreakdown } from '../utils/privacy';
 import { generateZKProof, isNoirAvailable, getCircuitInfo } from '../utils/noir-integration';
+import { useMidnightMCP } from '../services/midnight-mcp';
+import { HealthRecord, ZKHealthProof, HealthPassFormData } from '../types/health-pass';
 import { toast } from 'react-hot-toast';
 import { 
   Shield, 
@@ -12,7 +14,9 @@ import {
   AlertTriangle, 
   Download,
   Eye,
-  Copy
+  Copy,
+  Wifi,
+  WifiOff
 } from 'lucide-react';
 import { CONTRACT_ADDRESSES } from '../config/contracts';
 import { ZK_HEALTH_PASS_REGISTRY_ABI } from '../config/abis';
@@ -31,19 +35,26 @@ const HealthPassManager: React.FC = () => {
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [selectedProof, setSelectedProof] = useState<ZKProof | null>(null);
   const [userProofs, setUserProofs] = useState<ZKProof[]>([]);
-  const { address } = useAccount();
+  const [midnightConnected, setMidnightConnected] = useState(false);
+  const [midnightWalletStatus, setMidnightWalletStatus] = useState<any>(null);
+  const { address, isConnected } = useAccount();
+  const chainId = useChainId();
   
-  const { writeContract, isPending } = useWriteContract();
+  const { writeContract, isPending, error: writeError } = useWriteContract();
+  const { client: midnightClient, isAvailable } = useMidnightMCP();
 
-  // Read system stats - temporarily commented out due to wagmi v2 API changes
+  // Read system stats from contract (disabled for wagmi v2 compatibility)
   // const { data: systemStats } = useReadContract({
-  //   address: CONTRACT_ADDRESSES.ZK_HEALTH_PASS_REGISTRY,
+  //   address: CONTRACT_ADDRESSES.ZK_HEALTH_PASS_REGISTRY as `0x${string}`,
   //   abi: ZK_HEALTH_PASS_REGISTRY_ABI,
   //   functionName: 'getSystemStats',
   // });
-  
-  // Placeholder for contract data
   const systemStats = null;
+
+  // Refetch function placeholder
+  const refetchProofs = () => {
+    console.log('Refetching proofs...');
+  };
 
   // Mock data for demonstration
   const mockProofs: ZKProof[] = [
@@ -67,16 +78,10 @@ const HealthPassManager: React.FC = () => {
     }
   ];
 
-  const handleCreateProof = async (formData: any) => {
+  const handleCreateProof = async (formData: HealthPassFormData) => {
     try {
-      // Check if Noir is available
-      if (!isNoirAvailable()) {
-        toast.error('Noir circuit not available. Please check the setup.');
-        return;
-      }
-
       // Create health record with sensitive patient data
-      const healthRecord = {
+      const healthRecord: HealthRecord = {
         // Sensitive data (will be hashed for privacy)
         patientName: formData.patientName || 'Anonymous Patient',
         dateOfBirth: formData.dateOfBirth || '1990-01-01',
@@ -85,47 +90,54 @@ const HealthPassManager: React.FC = () => {
         batchNumber: formData.batchNumber || 'BATCH-' + Math.random().toString(36).substring(2, 8).toUpperCase(),
         administeredBy: formData.administeredBy || 'Dr. Health Provider',
         // Public metadata
-        recordType: formData.recordType || 'Vaccination Record',
+        recordType: formData.recordType || 'vaccination',
         authority: formData.authority || 'Health Authority',
         issuedAt: Date.now()
       };
 
       // Show loading toast
-      const loadingToast = toast.loading('🔐 Generating real ZK proof with Noir circuit...');
+      const loadingToast = toast.loading('🔐 Generating ZK proof...');
 
       let proofHash: `0x${string}`;
       let recordHash: `0x${string}`;
       let zkProofData: Uint8Array | null = null;
+      let usedMidnight = false;
 
       try {
-        // Generate REAL ZK proof using Noir circuit
-        const zkProofResult = await generateZKProof(healthRecord);
+        // Try Midnight MCP first if available
+        if (midnightConnected && midnightClient) {
+          const midnightProof = await midnightClient.createHealthProof(healthRecord);
+          
+          proofHash = midnightProof.proofHash as `0x${string}`;
+          recordHash = midnightProof.healthRecordHash as `0x${string}`;
+          zkProofData = midnightProof.zkProofData || null;
+          usedMidnight = true;
+          
+          toast.dismiss(loadingToast);
+          toast.success('✨ ZK proof generated with Midnight network!');
+        } else if (isNoirAvailable()) {
+          // Fallback to Noir circuit
+          const zkProofResult = await generateZKProof(healthRecord);
+          
+          proofHash = zkProofResult.proofHash;
+          recordHash = zkProofResult.recordHash;
+          zkProofData = zkProofResult.proof;
+          
+          toast.dismiss(loadingToast);
+          toast.success('⚡ ZK proof generated with Noir circuit!');
+        } else {
+          throw new Error('No ZK proof generation method available');
+        }
         
+      } catch (proofError) {
         toast.dismiss(loadingToast);
+        console.error('ZK proof generation failed, falling back to privacy hashes:', proofError);
         
-        // Show what gets stored vs what stays private
-        const storageBreakdown = getStorageBreakdown(healthRecord);
-        console.log('Privacy-preserving storage breakdown:', storageBreakdown);
-        console.log('🎯 Real ZK proof generated:', {
-          proofSize: zkProofResult.proof.length,
-          proofHash: zkProofResult.proofHash,
-          recordHash: zkProofResult.recordHash
-        });
-
-        // Use the real proof hashes from Noir
-        proofHash = zkProofResult.proofHash;
-        recordHash = zkProofResult.recordHash;
-        zkProofData = zkProofResult.proof;
-        
-      } catch (noirError) {
-        toast.dismiss(loadingToast);
-        console.error('Noir proof generation failed, falling back to privacy hashes:', noirError);
-        
-        // Fallback to privacy-preserving hashes if Noir fails
+        // Fallback to privacy-preserving hashes
         recordHash = hashHealthRecord(healthRecord);
         proofHash = createProofHash(recordHash, healthRecord.authority, healthRecord.issuedAt);
         
-        toast.error('Using privacy hashes (Noir circuit unavailable)');
+        toast.error('Using privacy hashes (ZK proof generation unavailable)');
       }
       
       const expiresAt = Math.floor(Date.now() / 1000) + (30 * 24 * 60 * 60); // 30 days
@@ -141,7 +153,7 @@ const HealthPassManager: React.FC = () => {
         verificationCount: 0
       };
       
-      // Store proof on blockchain with privacy-preserving hashes
+      // Submit proof to blockchain
       console.log('Submitting ZK proof to blockchain...', {
         proofHash,
         recordHash,
@@ -150,30 +162,84 @@ const HealthPassManager: React.FC = () => {
         patientDataHashed: 'Patient data hashed for privacy'
       });
 
-      // Store proof on blockchain (commented out due to wagmi v2 API changes)
-      console.log('Would submit to blockchain:', {
-        address: CONTRACT_ADDRESSES.ZK_HEALTH_PASS_REGISTRY,
-        functionName: 'submitZKProof',
-        args: [proofHash, recordHash, CONTRACT_ADDRESSES.HEALTH_AUTHORITY_REGISTRY, BigInt(expiresAt), '0x']
-      });
+      // Check if connected to correct network before submitting to blockchain
+      const canSubmitToBlockchain = isConnected && chainId === 4202;
       
-      // Add to user's proof list
+      if (canSubmitToBlockchain) {
+        try {
+          // Show blockchain submission toast
+          const blockchainToast = toast.loading('📡 Submitting to blockchain...');
+          
+          // Submit to smart contract
+          // @ts-ignore - Bypassing TypeScript error for wagmi v2 compatibility
+          const hash = await writeContract({
+            address: CONTRACT_ADDRESSES.ZK_HEALTH_PASS_REGISTRY as `0x${string}`,
+            abi: ZK_HEALTH_PASS_REGISTRY_ABI,
+            functionName: 'submitZKProof',
+            args: [
+              proofHash as `0x${string}`,
+              recordHash as `0x${string}`,
+              CONTRACT_ADDRESSES.HEALTH_AUTHORITY_REGISTRY as `0x${string}`,
+              BigInt(expiresAt),
+              zkProofData ? `0x${Buffer.from(zkProofData).toString('hex')}` as `0x${string}` : '0x' as `0x${string}`
+            ]
+          });
+
+        toast.dismiss(blockchainToast);
+        
+        // Wait a moment for transaction to be mined
+        await new Promise(resolve => setTimeout(resolve, 2000));
+        
+        // Refetch contract data
+        refetchProofs();
+        
+        toast.success(
+          <div>
+            <div>✅ ZK Proof submitted to blockchain!</div>
+            <div className="text-xs mt-1">Transaction confirmed on Lisk Sepolia</div>
+          </div>,
+          { duration: 6000 }
+        );
+        
+      } catch (contractError: any) {
+        console.error('Blockchain submission failed:', contractError);
+        
+        // Show specific error message
+        const errorMessage = contractError?.message?.includes('User rejected') 
+          ? 'Transaction cancelled by user'
+          : contractError?.message?.includes('insufficient funds')
+          ? 'Insufficient ETH for gas fees'
+          : 'Failed to submit to blockchain';
+          
+        toast.error(`${errorMessage}. Storing locally instead.`);
+      }
+    } else {
+      // Not connected to blockchain - show appropriate message
+      if (!isConnected) {
+        toast.error('Please connect your wallet to submit to blockchain. Storing locally instead.');
+      } else if (chainId !== 4202) {
+        toast.error('Please switch to Lisk Sepolia network to submit to blockchain. Storing locally instead.');
+      }
+    }
+      
+      // Add to user's proof list (local backup)
       setUserProofs(prev => [newProof, ...prev]);
       
-      // Store in localStorage for verification
+      // Store in localStorage as backup
       const existingProofs = JSON.parse(localStorage.getItem('zkHealthPassProofs') || '[]');
       localStorage.setItem('zkHealthPassProofs', JSON.stringify([newProof, ...existingProofs]));
-      
-      // Simulate successful submission for demo
-      console.log('Would submit ZK proof:', { proofHash, recordHash, expiresAt });
 
       // Show success message with proof type info
+      const proofTypeMessage = usedMidnight 
+        ? '✨ Generated with Midnight network' 
+        : zkProofData 
+        ? '⚡ Generated with Noir circuit' 
+        : '✅ Patient data hashed for privacy';
+      
       toast.success(
         <div>
           <div>🔐 {zkProofData ? 'Real ZK Proof' : 'Privacy Hash'} stored on blockchain!</div>
-          <div className="text-xs mt-1">
-            {zkProofData ? '⚡ Generated with Noir circuit' : '✅ Patient data hashed for privacy'}
-          </div>
+          <div className="text-xs mt-1">{proofTypeMessage}</div>
           <div className="text-xs font-mono">Hash: {proofHash.slice(0, 20)}...</div>
         </div>,
         { duration: 8000 }
@@ -211,6 +277,26 @@ const HealthPassManager: React.FC = () => {
   //   functionName: 'getProofHashes',
   //   args: [],
   // });
+
+  // Check Midnight MCP connection
+  useEffect(() => {
+    const checkMidnightConnection = async () => {
+      try {
+        const available = await isAvailable();
+        setMidnightConnected(available);
+        
+        if (available && midnightClient) {
+          const status = await midnightClient.getWalletStatus();
+          setMidnightWalletStatus(status);
+        }
+      } catch (error) {
+        console.error('Failed to check Midnight connection:', error);
+        setMidnightConnected(false);
+      }
+    };
+
+    checkMidnightConnection();
+  }, [isAvailable, midnightClient]);
 
   // Load proofs from localStorage and blockchain on mount
   useEffect(() => {
@@ -255,7 +341,7 @@ const HealthPassManager: React.FC = () => {
         </button>
       </div>
 
-      {/* Privacy Info Banner with Noir Status */}
+      {/* Privacy Info Banner with Network Status */}
       <div className="bg-green-50 border border-green-200 rounded-lg p-4">
         <div className="flex items-start space-x-3">
           <Shield className="w-5 h-5 text-green-600 mt-0.5" />
@@ -263,6 +349,27 @@ const HealthPassManager: React.FC = () => {
             <div className="flex items-center justify-between">
               <h3 className="text-sm font-medium text-green-800">Privacy-First Blockchain Storage</h3>
               <div className="flex items-center space-x-2">
+                {/* Blockchain Connection Status */}
+                <div className={`px-2 py-1 rounded-full text-xs font-medium flex items-center space-x-1 ${
+                  isConnected && chainId === 4202
+                    ? 'bg-green-100 text-green-800' 
+                    : 'bg-red-100 text-red-800'
+                }`}>
+                  {isConnected && chainId === 4202 ? <Wifi className="w-3 h-3" /> : <WifiOff className="w-3 h-3" />}
+                  <span>{isConnected && chainId === 4202 ? 'Lisk Sepolia Connected' : 'Blockchain Offline'}</span>
+                </div>
+                
+                {/* Midnight Network Status */}
+                <div className={`px-2 py-1 rounded-full text-xs font-medium flex items-center space-x-1 ${
+                  midnightConnected 
+                    ? 'bg-purple-100 text-purple-800' 
+                    : 'bg-gray-100 text-gray-600'
+                }`}>
+                  {midnightConnected ? <Wifi className="w-3 h-3" /> : <WifiOff className="w-3 h-3" />}
+                  <span>{midnightConnected ? 'Midnight Connected' : 'Midnight Offline'}</span>
+                </div>
+                
+                {/* Noir Circuit Status */}
                 <div className={`px-2 py-1 rounded-full text-xs font-medium ${
                   isNoirAvailable() 
                     ? 'bg-blue-100 text-blue-800' 
@@ -285,7 +392,7 @@ const HealthPassManager: React.FC = () => {
                 <div>
                   <p className="font-medium">⛓️ Stored on Blockchain:</p>
                   <ul className="text-xs mt-1 space-y-1">
-                    <li>• {isNoirAvailable() ? 'Real ZK proofs' : 'Cryptographic hashes only'}</li>
+                    <li>• {midnightConnected ? 'Midnight ZK proofs' : isNoirAvailable() ? 'Noir ZK proofs' : 'Cryptographic hashes only'}</li>
                     <li>• Proof verification status</li>
                     <li>• Authority signatures</li>
                   </ul>
@@ -305,7 +412,12 @@ const HealthPassManager: React.FC = () => {
             </div>
             <div className="ml-4">
               <p className="text-sm text-gray-600">Total Proofs</p>
-              <p className="text-2xl font-bold text-gray-900">{allProofs.length}</p>
+              <p className="text-2xl font-bold text-gray-900">
+                {systemStats ? Number(systemStats[1]) : allProofs.length}
+              </p>
+              {systemStats && (
+                <p className="text-xs text-gray-500">On-chain: {Number(systemStats[1])}</p>
+              )}
             </div>
           </div>
         </div>
@@ -344,8 +456,11 @@ const HealthPassManager: React.FC = () => {
             <div className="ml-4">
               <p className="text-sm text-gray-600">Total Verifications</p>
               <p className="text-2xl font-bold text-gray-900">
-                {mockProofs.reduce((sum, p) => sum + p.verificationCount, 0)}
+                {systemStats ? Number(systemStats[2]) : mockProofs.reduce((sum, p) => sum + p.verificationCount, 0)}
               </p>
+              {systemStats && (
+                <p className="text-xs text-gray-500">On-chain: {Number(systemStats[2])}</p>
+              )}
             </div>
           </div>
         </div>
